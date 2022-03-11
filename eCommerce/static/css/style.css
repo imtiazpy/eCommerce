@@ -879,11 +879,7 @@ footer {
 .newslatter .btn:hover {
 	background-color: #d9121f;
 }
-.footer-logo {
-	background: url(../images/footer-logo.png) no-repeat;
-	height: 39px;
-	margin-bottom: 20px;
-}
+
 .about > p {
 	margin: 0 50px 0 0;
 	line-height: 24px;
@@ -904,7 +900,7 @@ footer {
 	margin-top: 10px;
 }
 #footer .col-md-3 {
-	margin-bottom: 15px;
+	margin: 15px 0px;
 }
 .contact .address-info, .contact .call-info, .contact .email-info {
 	padding: 0 0 0 22px;
@@ -921,6 +917,7 @@ footer {
 	border-top: 1px solid #eaeaea;
 	text-align: center;
 	margin-top: 50px;
+	padding: 30px 0px 20px;
 }
 .social-link {
 	margin: -18px 0 25px;
