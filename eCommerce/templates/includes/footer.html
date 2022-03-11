@@ -1,23 +1,14 @@
+{% load static %}
+
 <footer id="footer">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newslatter">
-                    <form>
-                        <h2 class="tf">Be The First To Hear Our Exciting News</h2>
-                        <p>This ante posuere ac Mauris non turpis eu metus congue sagittis Fusce at.</p>
-                        <div class="input-group">
-                            <input class=" form-control" type="text" placeholder="Email Here......">
-                            <button type="submit" value="Sign up" class="btn btn-large btn-primary">Sign up</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-md-3">
                 <div class="about">
-                    <div class="footer-logo"></div>
+                    <div class="footer-logo">
+                        <img class="img-fluid" src="{% static 'images/logo.png' %}">
+                    </div>
                     <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
                         piece of classical Latin literature in Virginia</p>
                 </div>
@@ -83,21 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="footer-link">
-                        <ul>
-                            <li><a href="#">Specials</a></li>
-                            <li><a href="#">Affiliates</a></li>
-                            <li><a href="#">Gift Vouchers</a></li>
-                            <li><a href="#">Brands</a></li>
-                            <li><a href="#">Returns</a></li>
-                            <li><a href="#">Site Map</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="copy-right">
@@ -105,9 +82,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-offer">
-            <h2>Deals of the Day: Unbox Latest Offers & Deals Every Single Day at Store.</h2>
         </div>
     </div>
 </footer>
