@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags wagtailcore_tags team_tags %}
+{% get_team_info as teamInfo %}
+
+
+{% block content %}
+<div id="about-page-contain">
+    <div class="container">
+        <div class="row">
+            <div class="wwd">
+                <div class="col-md-12">
+                    <h2 class="tf">{{ self.heading }}</h2>
+                </div>
+                <div class="col-md-12">
+                    <p>
+                        {{ self.description | safe }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 team">
+                <h2 class="tf">{{ self.secondary_heading }}</h2>
+            </div>
+        </div>
+        <div class="row team">
+
+            {% for item in teamInfo %}
+            <div class="col-md-3 col-sm-3 team1 ">
+                <div class="photo">
+                    <div class="imageblock"> <img class="img-responsive" src="images/team1.jpg" alt="#">
+                        <div class="hoverblock"> </div>
+                        <div class="team-social"> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+                                    class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        </div>
+                        <div class="name"> <a href="#">ABRAHAM BAILEY </a> </div>
+                    </div>
+                    <h5>{{ item.title }}</h5>
+                    <p>desktop publishing packages and web page editors now use Lorem Ipsum as their default model web
+                        sites</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
