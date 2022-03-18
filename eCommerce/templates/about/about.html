@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags wagtailcore_tags team_tags %}
-{% get_team_info as teamInfo %}
-
+{% load static wagtailimages_tags wagtailcore_tags %}
 
 {% block content %}
 <div id="about-page-contain">
@@ -26,21 +24,25 @@
         </div>
         <div class="row team">
 
-            {% for item in teamInfo %}
+            {% for item in self.team_info.all %}
+            {% image item.image fill-400x400 as img %}
+
             <div class="col-md-3 col-sm-3 team1 ">
                 <div class="photo">
-                    <div class="imageblock"> <img class="img-responsive" src="images/team1.jpg" alt="#">
-                        <div class="hoverblock"> </div>
-                        <div class="team-social"> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-                                    class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                    <div class="imageblock">
+                        <img class="img-responsive img-fluid" src="{{ img.url }}" alt="#">
+
+                        <div class="name">
+                            <a href="#">{{ item.name }}</a>
                         </div>
-                        <div class="name"> <a href="#">ABRAHAM BAILEY </a> </div>
                     </div>
-                    <h5>{{ item.title }}</h5>
-                    <p>desktop publishing packages and web page editors now use Lorem Ipsum as their default model web
-                        sites</p>
+                    <h5>{{ item.name }} ({{ item.title }})</h5>
+                    <p>
+                        {{ item.details }}
+                    </p>
                 </div>
             </div>
+
             {% endfor %}
 
         </div>

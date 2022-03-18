@@ -2,11 +2,9 @@ from django.db import models
 from wagtail.core.models import Page
 from modelcluster.fields import ParentalKey
 
-from wagtail.core import blocks
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.fields import RichTextField
 
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, InlinePanel
 
 from about.about_utils import OrderableTeamInfo
 
@@ -36,3 +34,6 @@ class About(Page):
             InlinePanel('team_info', label="Team Info")
         ], heading="About Team")
     ]
+
+    def __str__(self):
+        return self.heading

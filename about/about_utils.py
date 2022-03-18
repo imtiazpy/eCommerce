@@ -13,11 +13,16 @@ class OrderableTeamInfo(Orderable):
         on_delete=models.SET_NULL,
         related_name="+"
     )
+    name = models.CharField(null=True, blank=True, max_length=100)
     title = models.CharField(null=True, blank=True, max_length=255)
     details = models.CharField(null=True, blank=True, max_length=500)
 
     panels = [
         ImageChooserPanel('image'),
+        FieldPanel('name'),
         FieldPanel('title'),
         FieldPanel('details')
     ]
+
+    def __str__(self):
+        return self.name
