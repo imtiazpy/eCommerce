@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'search',
     'sitesettings',
     'navbar',
+    'about',
 
     'wagtail.contrib.settings',
 

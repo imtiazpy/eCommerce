@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+<div id="about-page-contain">
+    <div class="container">
+        <div class="row">
+            <div class="wwd">
+                <div class="col-md-12">
+                    <h2 class="tf">{{ self.heading }}</h2>
+                </div>
+                <div class="col-md-12">
+                    <p>
+                        {{ self.description | safe }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 team">
+                <h2 class="tf">{{ self.secondary_heading }}</h2>
+            </div>
+        </div>
+        <div class="row team">
+
+            {% for item in self.team_info.all %}
+            {% image item.image fill-400x400 as img %}
+
+            <div class="col-md-3 col-sm-3 team1 ">
+                <div class="photo">
+                    <div class="imageblock">
+                        <img class="img-responsive img-fluid" src="{{ img.url }}" alt="#">
+
+                        <div class="name">
+                            <a href="#">{{ item.name }}</a>
+                        </div>
+                    </div>
+                    <h5>{{ item.name }} ({{ item.title }})</h5>
+                    <p>
+                        {{ item.details }}
+                    </p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
