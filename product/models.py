@@ -47,6 +47,8 @@ class Product(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    is_featured = models.BooleanField(
+        default=False, verbose_name=("Is Featured"))
 
     content_panels = Page.content_panels + [
         FieldPanel('sku'),
@@ -54,6 +56,7 @@ class Product(Page):
         FieldPanel('new_price'),
         ImageChooserPanel('image'),
         FieldPanel('short_description'),
+        FieldPanel('is_featured'),
         InlinePanel('custom_fields',
                     label='Custom Fields'),
     ]
