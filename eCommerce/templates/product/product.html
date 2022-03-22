@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+{% image self.image fill-600x800 as img %}
+<div id="product-category">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="right">
+                    <div class="product-detail-view">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="sp-wrap">
+                                    <a class="item" href="{{ img.url }}">
+                                        <img src="{{ img.url }}" alt=""></a> <a class="item"
+                                        href="images/product/feature-pro-2.jpg"><img
+                                            src="images/product/feature-pro-2.jpg" alt=""></a> <a class="item"
+                                        href="images/product/feature-pro-3.jpg"><img
+                                            src="images/product/feature-pro-3.jpg" alt=""></a> <a class="item"
+                                        href="images/product/feature-pro-4.jpg"><img
+                                            src="images/product/feature-pro-4.jpg" alt=""></a> <a class="item"
+                                        href="images/product/feature-pro-1.jpg"><img
+                                            src="images/product/feature-pro-1.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-detail-content">
+                                    <div class="product-name">
+                                        <h4><a href="{{ self.url }}">{{ self.custom_title }}</a>
+                                        </h4>
+                                    </div>
+
+                                    <div class="price">
+                                        <span class="price-old">{{ self.old_price }}&#2547;</span>
+                                        <span class="price-new">{{ self.new_price }}&#2547;</span>
+                                    </div>
+                                    <div class="stock">
+                                        <span>In stock : </span>
+                                        {% if self.is_available %}
+                                        <span style="color: green;">Yes</span>
+                                        {% else %}
+                                        <span style="color: red;">No</span>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="Sort-by">
+                                        <label>Size</label>
+                                        <select class="selectpicker form-control" id="select-by-size">
+                                            {% for size in sizes %}
+                                            <option value="#">{{ size }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="Color">
+                                        <label>Color</label>
+                                        <select class="selectpicker form-control" id="select-by-color">
+                                            {% for color in colors %}
+                                            <option value="#">{{ color }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="product-qty">
+                                        <label for="qty">Qty:</label>
+                                        <div class="custom-qty">
+                                            <button
+                                                onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) result.value--;return false;"
+                                                class="reduced items" type="button"> <i class="fa fa-minus"></i>
+                                            </button>
+                                            <input type="text" class="input-text qty" title="Qty" value="1"
+                                                maxlength="8" id="qty" name="qty">
+                                            <button
+                                                onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;"
+                                                class="increase items" type="button"> <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button type="submit" class="btn btn-default">Add to Cart</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if self.description %}
+                    <div class="product-detail-tab">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="tabs">
+                                    <ul class="nav nav-tabs">
+                                        <li><a class="tab-Description selected" title="Description">Description</a></li>
+
+                                    </ul>
+                                </div>
+                                <div id="items">
+                                    <div class="tab-content">
+                                        <ul>
+                                            <li>
+                                                <div class="items-Description selected">
+                                                    <div class="Description">
+                                                        {{ self.description | safe }}
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
