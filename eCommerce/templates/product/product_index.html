@@ -4,86 +4,87 @@
 {% block content %}
 
 <div id="product-category">
-    <div class="container">
-        <div class="row">
+  <div class="container">
+    <div class="row">
 
-            <div class="col-md-12">
-                <!-- right block Start  -->
-                <div id="right">
-                    <div class="category-banner">
-                        {% image self.banner width-1200 as banner %}
-                        <a href="#"><img src="{{ banner.url }}" alt="{{ banner.alt }}"></a>
+      <div class="col-md-12">
+        <!-- right block Start  -->
+        <div id="right">
+          <div class="category-banner">
+            {% image self.banner width-1200 as banner %}
+            <a href="#"><img src="{{ banner.url }}" alt="{{ banner.alt }}"></a>
+          </div>
+
+          <div class="product-grid-view">
+            <ul>
+
+              {% for product in products %}
+              {% image product.image fill-400x600 as img %}
+              <li>
+                <div class="item col-md-4 col-sm-6 col-xs-6">
+                  <div class="product-block ">
+                    <div class="image">
+                      <a href="{{ product.url }}">
+                        <img class="img-responsive" title="T-shirt" alt="T-shirt" src="{{ img.url }}">
+                      </a>
                     </div>
-
-                    <div class="product-grid-view">
+                    <div class="product-details">
+                      <div class="product-name">
+                        <h4>
+                          <a href="{{ product.url }}">
+                            {{ product.custom_title }}
+                          </a>
+                        </h4>
+                      </div>
+                      <div class="price">
+                        {% if product.old_price %}
+                        <span class="price-old">{{ product.old_price }}&#2547;</span>
+                        {% endif %}
+                        <span class="price-new">{{ product.new_price }}&#2547;</span>
+                      </div>
+                      <div class="product-hov">
                         <ul>
-
-                            {% for product in products %}
-                            {% image product.image fill-400x600 as img %}
-                                <li>
-                                    <div class="item col-md-4 col-sm-6 col-xs-6">
-                                        <div class="product-block ">
-                                            <div class="image">
-                                                <a href="{{ product.url }}">
-                                                    <img class="img-responsive" title="T-shirt" alt="T-shirt"
-                                                        src="{{ img.url }}">
-                                                </a>
-                                            </div>
-                                            <div class="product-details">
-                                                <div class="product-name">
-                                                    <h4>
-                                                        <a href="{{ product.url }}">
-                                                            {{ product.title }}
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                <div class="price">
-                                                    <span class="price-old">{{ product.old_price }}&#2547;</span> <span
-                                                        class="price-new">{{ product.new_price }}&#2547;</span>
-                                                </div>
-                                                <div class="product-hov">
-                                                    <ul>
-                                                        <li class="wish"><a href="#"></a></li>
-                                                        <li class="addtocart">
-                                                            <a href="#">Add to Cart</a>
-                                                        </li>
-                                                        <li class="compare"><a href="#"></a></li>
-                                                    </ul>
-                                                    <div class="review">
-                                                        <span class="rate">
-                                                            <i class="fa fa-star rated"></i>
-                                                            <i class="fa fa-star rated"></i>
-                                                            <i class="fa fa-star rated"></i>
-                                                            <i class="fa fa-star rated"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                            {% endfor %}
-
+                          <li class="wish"><a href="#"></a></li>
+                          <li class="addtocart">
+                            <a href="#">Add to Cart</a>
+                          </li>
+                          <li class="compare"><a href="#"></a></li>
                         </ul>
+                        <div class="review">
+                          <span class="rate">
+                            <i class="fa fa-star rated"></i>
+                            <i class="fa fa-star rated"></i>
+                            <i class="fa fa-star rated"></i>
+                            <i class="fa fa-star rated"></i>
+                            <i class="fa fa-star"></i>
+                          </span>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-                <div class="row">
-                    <div class="pagination-bar">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- right block end  -->
-            </div>
+              </li>
+
+              {% endfor %}
+
+            </ul>
+          </div>
         </div>
+        <div class="row">
+          <div class="pagination-bar">
+            <ul>
+              <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- right block end  -->
+      </div>
     </div>
+  </div>
 </div>
 
 
