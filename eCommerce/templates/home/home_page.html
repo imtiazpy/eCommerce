@@ -42,18 +42,20 @@
             <div class="item">
               <div class="product-block ">
                 <div class="image">
-                  <a href="product-detail-view.html">
+                  <a href="{{ item.url }}">
                     <img class="img-responsive" title="T-shirt" alt="T-shirt" src="{{ img.url }}">
                   </a>
                 </div>
                 <div class="product-details">
                   <div class="product-name">
                     <h3>
-                      <a href="product-detail-view.html">{{ item.title }}</a>
+                      <a href="{{ item.url }}">{{ item.custom_title }}</a>
                     </h3>
                   </div>
                   <div class="price">
-                    <span class="price-old">{{ item.old_price }}&#2547;</span>
+                    {% if item.old_price %}
+                      <span class="price-old">{{ item.old_price }}&#2547;</span>
+                    {% endif %}
                     <span class="price-new">{{ item.new_price }}&#2547;</span>
                   </div>
                   <div class="product-hov">
@@ -79,28 +81,3 @@
 </div>
 <!-- Featured Products block End  -->
 {% endblock content %}
-
-
-<!-- <div class="columns">
-    {% for product in products %}
-    <div class="column col-6">
-        <div class="card">
-            <div class="card-image">
-                {% image product.image fill-1000x200 as tmp_image %}
-                <img src="{{ tmp_image.url }}" alt="" class="img-responsive">
-            </div>
-            <div class="card-header">
-                <a href="{{ product.get_url }}" class="btn btn-primary float-right">
-                    <i class="icon icon-plus"></i>
-                </a>
-                <div class="card-title h5">
-                    {{ product.title }}
-                </div>
-            </div>
-            <div class="card-body">
-                {{ product.description }}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div> -->
