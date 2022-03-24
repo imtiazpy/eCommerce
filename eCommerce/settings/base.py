@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'navbar',
     'about',
     'product',
+    'contact',
 
     'wagtail.contrib.settings',
 
