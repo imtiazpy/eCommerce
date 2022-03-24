@@ -2,6 +2,10 @@
 
 {% load static wagtailcore_tags wagtailimages_tags %}
 
+{% block extra_css %}
+<link href="{% static 'css/smoothproducts.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block content %}
 {% image self.image fill-600x800 as img %}
 <div id="product-category">
@@ -12,22 +16,14 @@
           <div class="product-detail-view">
             <div class="row">
               <div class="col-md-6">
+
                 <div class="sp-wrap">
+                  {% for item in self.product_images %}
+                  {% image item.value.image fill-600x800 as img %}
                   <a class="item" href="{{ img.url }}">
                     <img src="{{ img.url }}" alt="">
                   </a>
-                  <a class="item" href="images/product/feature-pro-2.jpg">
-                    <img src="images/product/feature-pro-2.jpg" alt="">
-                  </a>
-                  <a class="item" href="images/product/feature-pro-3.jpg">
-                    <img src="images/product/feature-pro-3.jpg" alt="">
-                  </a>
-                  <a class="item" href="images/product/feature-pro-4.jpg">
-                    <img src="images/product/feature-pro-4.jpg" alt="">
-                  </a>
-                  <a class="item" href="images/product/feature-pro-1.jpg">
-                    <img src="images/product/feature-pro-1.jpg" alt="">
-                  </a>
+                  {% endfor %}
                 </div>
               </div>
               <div class="col-md-6">
@@ -126,6 +122,11 @@
 </div>
 {% endblock %}
 
-<!-- todo -->
-
-<!-- add extra js for smooth products -->
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/smoothproducts.min.js'  %}"></script>
+<script>
+  $(window).load(function () {
+    $('.sp-wrap').smoothproducts();
+  });
+</script>
+{% endblock %}
