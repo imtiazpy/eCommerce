@@ -30,6 +30,10 @@ INSTALLED_APPS = [
     'navbar',
     'about',
     'product',
+    'contact',
+
+    # for modeladmin to show in the admin panel
+    'wagtail.contrib.modeladmin',
 
     'wagtail.contrib.settings',
 
