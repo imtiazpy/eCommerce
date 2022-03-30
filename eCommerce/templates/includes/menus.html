@@ -26,7 +26,7 @@
               {% if navbar.mega_menu.all.exists %}
                 <ul class="dropdown-menu">
                   {% for item in navbar.mega_menu.all %}
-                    <li><a href="">{{ item.title }}</a></li>
+                    <li><a href="{{ item.mega_menu_link }}">{{ item.title }}</a></li>
                   {% endfor %}
                 </ul>
               {% endif %}
