@@ -67,12 +67,18 @@ class MegaMenu(ClusterableModel):
         null=True,
         max_length=100
     )
-
+    mega_menu_link = models.CharField(
+        blank=True,
+        null=True,
+        max_length=255,
+        verbose_name=("Mega Menu Link")
+    )
     panels = [
         SnippetChooserPanel("navigation"),
         MultiFieldPanel([
             FieldPanel('title')
         ], heading="Mega Menu"),
+        FieldPanel('mega_menu_link'),
         InlinePanel("mega_menu_items", label="Mega Menu Item")
     ]
 
