@@ -7,6 +7,8 @@ name = "pypi"
 Django = "<3.3,>=3.2"
 wagtail = "<2.16,>=2.15"
 django-environ = "*"
+django-allauth = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 

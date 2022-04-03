@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from telnetlib import AUTHENTICATION
 import environ
 
 env = environ.Env()
@@ -27,6 +28,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    # Local
     'home',
     'search',
     'sitesettings',
@@ -35,7 +37,7 @@ INSTALLED_APPS = [
     'product',
     'contact',
 
-    # for modeladmin to show in the admin panel
+    # for modeladmin to show in the admin panel of wagtail
     'wagtail.contrib.modeladmin',
 
     'wagtail.contrib.settings',
@@ -61,6 +63,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    # Third party
+    'crispy_forms',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -184,3 +192,24 @@ BASE_URL = 'http://example.com'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+# django-allauth config
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
