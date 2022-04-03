@@ -11,9 +11,15 @@ from search import views as search_views
 from contact.views import contact
 
 urlpatterns = [
+    # django admin
     path('django-admin/', admin.site.urls),
 
+    # wagtail admin
     path('admin/', include(wagtailadmin_urls)),
+
+    # User management
+    path('accounts/', include('allauth.urls')),
+
     path('documents/', include(wagtaildocs_urls)),
 
     path('search/', search_views.search, name='search'),
