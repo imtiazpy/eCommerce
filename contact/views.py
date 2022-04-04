@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from contact.models import Contact
 
 
+@login_required(login_url='/accounts/login')
 def contact(request):
     if request.method == 'POST':
         Contact.objects.create(
