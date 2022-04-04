@@ -194,6 +194,9 @@ BASE_URL = 'http://example.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
+# django-crispy-forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # django-allauth config
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'

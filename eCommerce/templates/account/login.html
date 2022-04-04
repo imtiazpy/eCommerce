@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container modal-content my-5 py-5">
+<div class="container modal-content my-5 py-5" style="margin-bottom: 50px;">
   <div class="modal-header">
     <div class="panel-heading">
       <div class="panel-title pull-left">Login</div>
-      <div class="pull-right"><a href="#">Forgot password?</a>
+      <div class="pull-right"><a href="{% url 'account_reset_password' %}">Forgot password?</a>
         <button aria-hidden="true" data-dismiss="modal" class="close btn btn-xs " type="button"> <i
             class="fa fa-times"></i> </button>
       </div>
@@ -17,31 +17,7 @@
     {{ form|crispy }}
     <button class="btn btn-success" type="submit">Log In</button>
   </form>
-  <!-- <div class="modal-body">
-    <form id="loginform" class="form-horizontal" method="post" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="login-username" type="text" class="form-control" name="username" value=""
-          placeholder="username or email">
-      </div>
-      <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
-      </div>
-      <div class="input-group">
-        <div class="checkbox">
-          <label>
-            <input id="login-remember" type="checkbox" name="remember" value="1">
-            Remember me</label>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-12 controls">
-          <button id="btn-login" class="btn btn-primary btn-success" type="submit">Login</button>
-          <a id="btn-fblogin" href="#" class="btn btn-primary facebook">Login with</a>
-        </div>
-      </div>
-    </form>
-  </div> -->
+
   <div class="modal-footer">
     <div class="form-group">
       <div class="col-md-12 control">
