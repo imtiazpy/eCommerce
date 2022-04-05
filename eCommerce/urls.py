@@ -26,6 +26,7 @@ urlpatterns = [
 
     # static urls
     path('contact/', contact, name='contact'),
+    path('', include('product.urls')),
 
 ]
 

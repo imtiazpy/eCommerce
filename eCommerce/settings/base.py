@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    # Local
+    # Local apps
     'home',
     'search',
     'sitesettings',
@@ -197,7 +197,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# django-allauth config
+# ==============django-allauth config============
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
@@ -216,3 +216,5 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ==============django-allauth config============
