@@ -217,4 +217,4 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# ==============django-allauth config============
+# ==============django-allauth config end============
