@@ -106,6 +106,9 @@ class Product(Page):
         context['colors'] = colors
         return context
 
+    def __str__(self):
+        return self.custom_title
+
 
 # =================models for customer, Order, OrderItem and Shipping==============
 
@@ -118,6 +121,12 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def get_order(self):
+        """To show all the orders of the customer in wagtail modelAdmin"""
+        orders = [item for item in self.order_set.all()]
+        return orders
+
 
 class Order(models.Model):
     customer = models.ForeignKey(
@@ -128,6 +137,28 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def get_cart_total(self):
+        """To show the sum of each orderitems total(quantity*price)"""
+        ordered_items = self.orderitem_set.all()
+        total = sum([item.get_total for item in ordered_items])
+        return total
+
+    @property
+    def get_cart_items(self):
+        """To show the sum of all the items quantity in cart and checkout"""
+        ordered_items = self.orderitem_set.all()
+        total = sum([item.quantity for item in ordered_items])
+        return total
+
+    @property
+    def items_in_order(self):
+        """To show all the orderitems of order and quantity in wagtail modelAdmin"""
+        ordered_items = self.orderitem_set.all()
+        items = [(item.product.custom_title, item.quantity)
+                 for item in ordered_items]
+        return items
 
 
 class OrderItem(models.Model):
@@ -140,6 +171,12 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.product.custom_title
+
+    @property
+    def get_total(self):
+        """To show the total of each order item (quantity * price)"""
+        total = self.product.new_price * self.quantity
+        return total
 
 
 class ShippingAddress(models.Model):
