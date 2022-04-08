@@ -8,7 +8,7 @@ from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, InlinePanel
 
 from about.about_utils import OrderableTeamInfo
 
-from product.models import Order
+from product.models import Order, Customer
 
 
 class TeamInfo(OrderableTeamInfo):
@@ -42,15 +42,19 @@ class About(Page):
 
     def get_context(self, request):
         if request.user.is_authenticated:
-            customer = request.user.customer
+            try:
+                customer = request.user.customer
+            except:
+                customer, created = Customer.objects.get_or_create(
+                    user=request.user, name=request.user.username, email=request.user.email)
             order, created = Order.objects.get_or_create(
                 customer=customer, complete=False)
             cartItems = order.get_cart_items
             cartTotal = order.get_cart_total
         else:
             order = {'id': 0}
-            cartItems = order['get_cart_items']
-            cartTotal = order['get_cart_total']
+            cartItems = 0
+            cartTotal = 0
 
         context = super().get_context(request)
         context['cartItems'] = cartItems
