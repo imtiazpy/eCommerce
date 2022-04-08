@@ -36,8 +36,8 @@ class ProductIndex(Page):
             cartTotal = order.get_cart_total
         else:
             order = {'id': 0}
-            cartItems = order['get_cart_items']
-            cartTotal = order['get_cart_total']
+            cartItems = 0
+            cartTotal = 0
 
         context = super().get_context(request)
         context['products'] = Product.objects.child_of(self).live()
@@ -114,8 +114,8 @@ class Product(Page):
             cartTotal = order.get_cart_total
         else:
             order = {'id': 0}
-            cartItems = order['get_cart_items']
-            cartTotal = order['get_cart_total']
+            cartItems = 0
+            cartTotal = 0
 
         context = super().get_context(request)
         sizes = []
