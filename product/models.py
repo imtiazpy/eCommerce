@@ -28,8 +28,21 @@ class ProductIndex(Page):
     ]
 
     def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = order['get_cart_items']
+            cartTotal = order['get_cart_total']
+
         context = super().get_context(request)
         context['products'] = Product.objects.child_of(self).live()
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
         return context
 
 
@@ -93,6 +106,17 @@ class Product(Page):
     ]
 
     def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = order['get_cart_items']
+            cartTotal = order['get_cart_total']
+
         context = super().get_context(request)
         sizes = []
         colors = []
@@ -104,6 +128,8 @@ class Product(Page):
                 colors.append(color)
         context['sizes'] = sizes
         context['colors'] = colors
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
         return context
 
     def __str__(self):
@@ -154,7 +180,7 @@ class Order(models.Model):
 
     @property
     def items_in_order(self):
-        """To show all the orderitems of order and quantity in wagtail modelAdmin"""
+        """To show all the orderitems of order and each ones quantity in wagtail modelAdmin"""
         ordered_items = self.orderitem_set.all()
         items = [(item.product.custom_title, item.quantity)
                  for item in ordered_items]
