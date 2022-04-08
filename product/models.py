@@ -10,8 +10,44 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from product.blocks.productImage import ProductImageBlock
 
 
+class AllProductListingPage(Page):
+    """Model to list all the products in one page"""
+    template = 'product/all_product_listing_page.html'
+    custom_title = models.CharField(max_length=100, blank=False, null=True)
+    banner = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+"
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('custom_title'),
+        ImageChooserPanel('banner')
+    ]
+
+    def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = 0
+            cartTotal = 0
+
+        context = super().get_context(request)
+        context['products'] = Product.objects.all().live()
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
+        return context
+
+
 class ProductIndex(Page):
-    """Model to list all the products"""
+    """Model to list all child products created under this Page"""
     template = 'product/product_index.html'
     custom_title = models.CharField(max_length=100, blank=False, null=True)
     banner = models.ForeignKey(
@@ -47,7 +83,7 @@ class ProductIndex(Page):
 
 
 class Product(Page):
-    """Model for product"""
+    """Model for product detail page"""
     template = 'product/product.html'
     custom_title = models.CharField(max_length=100, blank=False, null=True)
     sku = models.CharField(max_length=255)
