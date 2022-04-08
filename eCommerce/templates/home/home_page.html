@@ -54,15 +54,16 @@
                   </div>
                   <div class="price">
                     {% if item.old_price %}
-                      <span class="price-old">{{ item.old_price }}&#2547;</span>
+                    <span class="price-old">{{ item.old_price }}&#2547;</span>
                     {% endif %}
                     <span class="price-new">{{ item.new_price }}&#2547;</span>
                   </div>
                   <div class="product-hov">
                     <ul>
-                      <li class="wish"><a href="#"></a></li>
-                      <li class="addtocart"><a href="#">Add to Cart</a> </li>
-                      <li class="compare"><a href="#"></a></li>
+                      <li class="addtocart">
+                        <button data-product="{{ item.id }}" data-action="add" type="submit"
+                          class="btn btn-default update-cart">Add to Cart</button>
+                      </li>
                     </ul>
                     <div class="review"> <span class="rate"> <i class="fa fa-star rated"></i> <i
                           class="fa fa-star rated"></i> <i class="fa fa-star rated"></i> <i

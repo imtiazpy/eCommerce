@@ -24,8 +24,9 @@ urlpatterns = [
 
     path('search/', search_views.search, name='search'),
 
-    # static urls
+    # custom urls
     path('contact/', contact, name='contact'),
+    path('', include('product.urls')),
 
 ]
 

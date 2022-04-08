@@ -6,7 +6,7 @@ from wagtail.core.fields import StreamField
 
 from home.blocks.headerCarousel import HeaderCarouselBlock
 
-from product.models import Product
+from product.models import Product, Order
 
 
 class HomePage(Page):
@@ -23,7 +23,20 @@ class HomePage(Page):
     ]
 
     def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = order['get_cart_items']
+            cartTotal = order['get_cart_total']
+
         context = super().get_context(request)
         context['featured'] = Product.objects.filter(is_featured=True)
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
 
         return context

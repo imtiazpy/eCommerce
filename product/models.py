@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 from wagtail.core.models import Page
 
@@ -27,8 +28,21 @@ class ProductIndex(Page):
     ]
 
     def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = order['get_cart_items']
+            cartTotal = order['get_cart_total']
+
         context = super().get_context(request)
         context['products'] = Product.objects.child_of(self).live()
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
         return context
 
 
@@ -92,6 +106,17 @@ class Product(Page):
     ]
 
     def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = order['get_cart_items']
+            cartTotal = order['get_cart_total']
+
         context = super().get_context(request)
         sizes = []
         colors = []
@@ -103,4 +128,92 @@ class Product(Page):
                 colors.append(color)
         context['sizes'] = sizes
         context['colors'] = colors
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
         return context
+
+    def __str__(self):
+        return self.custom_title
+
+
+# =================models for customer, Order, OrderItem and Shipping==============
+
+class Customer(models.Model):
+    user = models.OneToOneField(
+        get_user_model(), on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=100, null=True, blank=False)
+    email = models.EmailField(null=True, blank=False)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def get_order(self):
+        """To show all the orders of the customer in wagtail modelAdmin"""
+        orders = [item for item in self.order_set.all()]
+        return orders
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(
+        Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False, null=True, blank=True)
+    transaction_id = models.CharField(max_length=200, null=True, blank=False)
+
+    def __str__(self):
+        return str(self.id)
+
+    @property
+    def get_cart_total(self):
+        """To show the sum of each orderitems total(quantity*price)"""
+        ordered_items = self.orderitem_set.all()
+        total = sum([item.get_total for item in ordered_items])
+        return total
+
+    @property
+    def get_cart_items(self):
+        """To show the sum of all the items quantity in cart and checkout"""
+        ordered_items = self.orderitem_set.all()
+        total = sum([item.quantity for item in ordered_items])
+        return total
+
+    @property
+    def items_in_order(self):
+        """To show all the orderitems of order and each ones quantity in wagtail modelAdmin"""
+        ordered_items = self.orderitem_set.all()
+        items = [(item.product.custom_title, item.quantity)
+                 for item in ordered_items]
+        return items
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(
+        Order, on_delete=models.SET_NULL, blank=True, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.product.custom_title
+
+    @property
+    def get_total(self):
+        """To show the total of each order item (quantity * price)"""
+        total = self.product.new_price * self.quantity
+        return total
+
+
+class ShippingAddress(models.Model):
+    customer = models.ForeignKey(
+        Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(
+        Order, on_delete=models.SET_NULL, blank=True, null=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
+    zipcode = models.CharField(max_length=200, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.address

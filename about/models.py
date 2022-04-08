@@ -8,6 +8,8 @@ from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, InlinePanel
 
 from about.about_utils import OrderableTeamInfo
 
+from product.models import Order
+
 
 class TeamInfo(OrderableTeamInfo):
     info = ParentalKey('About', related_name='team_info')
@@ -37,3 +39,20 @@ class About(Page):
 
     def __str__(self):
         return self.heading
+
+    def get_context(self, request):
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            cartItems = order.get_cart_items
+            cartTotal = order.get_cart_total
+        else:
+            order = {'id': 0}
+            cartItems = order['get_cart_items']
+            cartTotal = order['get_cart_total']
+
+        context = super().get_context(request)
+        context['cartItems'] = cartItems
+        context['cartTotal'] = cartTotal
+        return context

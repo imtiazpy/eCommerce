@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<div id="bread-crumb">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="page-title">
+          <h4>Checkout</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="checkout-step-contain">
+  <div class="container">
+    <div class="account-content checkout-staps">
+
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Shipping Address</h5>
+          <form class="billing-info">
+            <div class="products-order checkout billing-information">
+
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <div class="input-group">
+                    <input type="text" required placeholder="First Name *" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="input-group">
+                    <input type="text" required placeholder="Last Name *" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                  <div class="input-group">
+                    <input type="text" required placeholder="Address line *" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="input-group">
+                    <input type="text" required placeholder="City *" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="input-group">
+                    <input type="text" required placeholder="ZIP / Postal Code *" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <div class="input-group">
+                    <input type="text" required placeholder="Phone *" class="form-control">
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12">
+                  <div class="input-group">
+                    <textarea placeholder="Additional information" id="textarea_message" name="contact-message"
+                      class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- ===============Payment method=============== -->
+
+          <div class="row">
+            <div class="col-lg-12">
+              <h2 class="delivery-method tf">
+                Choose your Payment method <br>
+                <small>(Right now only cash on delivery available)</small>
+              </h2>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+              <div class="paymentBox">
+                <div class="accordion">
+                  <div class="accordion-section">
+                    <span class="accordion-section-title">
+                      Cash on Delivery
+                    </span>
+                    <div id="accordion-1" class="accordion-section-content open" style="display: block;">
+                      <div class="panel-collapse collapse in" id="collapseOne">
+                        <div class="panel-body">
+                          <p>All transactions are secure and encrypted, and we neverstor To learn more, please view our
+                            privacy policy.</p>
+                          <br>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" checked value="option1" id="optionsRadios1" name="optionsRadios">
+                              Cash On Delivery </label>
+                          </div>
+                          <div class="form-group">
+                            <label for="CommentsOrder">Add Comments About Your Order</label>
+                            <textarea rows="3" cols="26" name="CommentsOrder" class="form-control"
+                              id="CommentsOrder"></textarea>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!--end .accordion-section-content-->
+                  </div>
+                  <!--end .accordion-section-->
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <!-- ============order summary on the right side===============  -->
+
+        <div class="col-md-6">
+          <h5>Order Summary</h5>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="cart-content table-responsive">
+                <table class="cart-table ">
+                  <tbody>
+                    <tr class="Cartproduct carttableheader">
+                      <td style="width:10%"> Product</td>
+                      <td style="width:45%">Details</td>
+                      <td style="width:10%">QNT</td>
+                      <td style="width:15%">Total</td>
+                      <td class="delete" style="width:10%">&nbsp;</td>
+                    </tr>
+                    {% for item in items %}
+                    <tr class="Cartproduct">
+                      <td>
+                        <div class="image">
+                          <a href="{{ item.product.url }}">
+                            {% image item.product.featured_image fill-100x150 as img %}
+                            <img alt="img" src="{{ img.url }}">
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-name">
+                          <h3><a href="{{ item.product.url }}">{{ item.product.custom_title }}</a></h3>
+                        </div>
+                        <span class="size">24 x 2.3 M</span>
+                        <div class="price"><span>&#2547; {{ item.product.new_price }}</span></div>
+                      </td>
+                      <td class="product-quantity">
+                        <div class="quantity">
+                          <input data-product="{{ item.product.id }}" data-action="add-remove" type="number" size="4"
+                            class="input-text qty text update-cart" title="Qty" value="{{ item.quantity }}" name="cart"
+                            min="0" step="1">
+                        </div>
+                      </td>
+                      <td class="price">&#2547; {{ item.get_total }}</td>
+                      <td class="delete"><a title="Delete"> <i class="glyphicon glyphicon-trash "></i></a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="cart-detail">
+                      <td colspan="3">Total products</td>
+                      <td colspan="2" class="price">{{ order.get_cart_items }}</td>
+                    </tr>
+                    <tr class="cart-detail">
+                      <td colspan="3">Total products price</td>
+                      <td colspan="2" class="price">&#2547; {{ order.get_cart_total }}</td>
+                    </tr>
+                    <tr class="cart-detail">
+                      <td colspan="3">Shipping</td>
+                      <td colspan="2" class="price"><span class="success">Free shipping!</span></td>
+                    </tr>
+                    <tr class="cart-detail">
+                      <td colspan="3"> Total</td>
+                      <td colspan="2" class="price" id="total-price">&#2547; {{ order.get_cart_total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+              <div class="cart-bottom">
+                <div class="box-footer">
+                  <div class="pull-left">
+                    <a class="btn btn-default" href="{% url 'cart' %}">
+                      <i class="fa fa-arrow-left"></i> &nbsp;
+                      Go back to cart
+                    </a>
+                  </div>
+                  <div class="pull-right">
+                    <a class="btn btn-primary btn-small " href="thanks-for-order.html">
+                      Confirm Order &nbsp; <i class="fa fa-check"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+{% endblock %}
