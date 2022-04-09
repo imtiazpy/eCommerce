@@ -56,10 +56,7 @@ def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
-    try:
-        value = data['value']
-    except:
-        pass
+    value = data['value']
 
     customer = request.user.customer
     product = get_object_or_404(Product, id=productId)
@@ -72,13 +69,13 @@ def updateItem(request):
 
     if action == 'add':
         orderItem.quantity = (orderItem.quantity + 1)
+    elif action == 'remove':
+        orderItem.quantity = (orderItem.quantity - 1)
     elif action == 'add-remove':
         orderItem.quantity = value
 
     orderItem.save()
 
-    # Todo:
-    #     Deletion is not working, need to work on that
     if orderItem.quantity <= 0:
         orderItem.delete()
 

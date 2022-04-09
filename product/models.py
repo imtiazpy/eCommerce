@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 
 from wagtail.core.models import Page
 
@@ -144,14 +145,20 @@ class Product(Page):
     def get_context(self, request):
         if request.user.is_authenticated:
             customer = request.user.customer
+            productId = self.id
             order, created = Order.objects.get_or_create(
                 customer=customer, complete=False)
+            orderItem, created = OrderItem.objects.get_or_create(
+                product_id=productId, order=order)
+
             cartItems = order.get_cart_items
             cartTotal = order.get_cart_total
+            orderQuantity = orderItem.quantity
         else:
             order = {'id': 0}
             cartItems = 0
             cartTotal = 0
+            orderQuantity = 0
 
         context = super().get_context(request)
         sizes = []
@@ -166,6 +173,7 @@ class Product(Page):
         context['colors'] = colors
         context['cartItems'] = cartItems
         context['cartTotal'] = cartTotal
+        context['orderQuantity'] = orderQuantity
         return context
 
     def __str__(self):
