@@ -43,7 +43,7 @@
               <div class="product-block ">
                 <div class="image">
                   <a href="{{ item.url }}">
-                    <img class="img-responsive" title="T-shirt" alt="T-shirt" src="{{ img.url }}">
+                    <img class="img-responsive" alt="{{ img.alt }}" src="{{ img.url }}">
                   </a>
                 </div>
                 <div class="product-details">
@@ -60,15 +60,10 @@
                   </div>
                   <div class="product-hov">
                     <ul>
-                      <li class="addtocart">
-                        <button data-product="{{ item.id }}" data-action="add" type="submit"
-                          class="btn btn-default update-cart">Add to Cart</button>
+                      <li class="prduct-details">
+                        <a href="{{ item.url }}" class="btn btn-default">View Details</a>
                       </li>
                     </ul>
-                    <div class="review"> <span class="rate"> <i class="fa fa-star rated"></i> <i
-                          class="fa fa-star rated"></i> <i class="fa fa-star rated"></i> <i
-                          class="fa fa-star rated"></i> <i class="fa fa-star"></i>
-                      </span> </div>
                   </div>
                 </div>
               </div>
