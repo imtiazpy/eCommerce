@@ -80,3 +80,19 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse("Item was added", safe=False)
+
+
+def deleteItem(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+
+    customer = request.user.customer
+    product = get_object_or_404(Product, id=productId)
+    order, created = Order.objects.get_or_create(
+        customer=customer, complete=False)
+    orderItem, created = OrderItem.objects.get_or_create(
+        order=order, product=product)
+
+    orderItem.delete()
+
+    return JsonResponse("Item was deleted", safe=False)
