@@ -54,7 +54,11 @@
                   </div>
                 </td>
                 <td class="price">${{ item.get_total }}</td>
-                <td class="delete"><a title="Delete"> <i class="glyphicon glyphicon-trash "></i></a></td>
+                <td class="delete">
+                  <a title="Delete" class="delete-item" data-product="{{item.product.id}}">
+                    <i class="glyphicon glyphicon-trash "></i>
+                  </a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>
