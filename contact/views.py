@@ -1,13 +1,11 @@
 from django.shortcuts import render
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 
 from contact.models import Contact
 
 from product.models import Order, Customer
 
 
-@login_required(login_url='/accounts/login')
 def contact(request):
     if request.method == 'POST':
         Contact.objects.create(
@@ -18,15 +16,16 @@ def contact(request):
             message=request.POST.get('message', ''),
         )
         messages.success(request, "Your message has been submitted.")
-    try:
+
+    if request.user.is_authenticated:
         customer = request.user.customer
-    except:
-        customer, created = Customer.objects.get_or_create(
-            user=request.user, name=request.user.username, email=request.user.email)
-    order, created = Order.objects.get_or_create(
-        customer=customer, complete=False)
-    cartItems = order.get_cart_items
-    cartTotal = order.get_cart_total
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        cartItems = order.get_cart_items
+        cartTotal = order.get_cart_total
+    else:
+        cartItems = 0
+        cartTotal = 0
     context = {
         'contact': True,
         'cartItems': cartItems,
