@@ -1,6 +1,10 @@
 const updateBtns = document.getElementsByClassName("update-cart");
 const deleteBtns = document.getElementsByClassName("delete-item");
 
+const continueShoppingBtn = document.getElementById("continue-shopping-btn");
+
+
+// Updating cart quantity in cart and checkout and product detail page
 for (const btn of updateBtns) {
     btn.addEventListener("click", function () {
         const productId = this.dataset.product;
@@ -84,3 +88,8 @@ const deleteUserOrder = (productId) => {
         })
 };
 
+
+// Continue shopping button functionality in cart 
+continueShoppingBtn.addEventListener('click', function () {
+    window.history.back()
+})
