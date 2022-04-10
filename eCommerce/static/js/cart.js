@@ -7,22 +7,32 @@ const continueShoppingBtn = document.getElementById("continue-shopping-btn");
 // Updating cart quantity in cart and checkout and product detail page
 for (const btn of updateBtns) {
     btn.addEventListener("click", function () {
+
+        const sizeOptions = document.getElementById('select-by-size');
+        const size = sizeOptions ? sizeOptions.options[sizeOptions.selectedIndex].text : '';
+
+        const colorOptions = document.getElementById('select-by-color');
+        const color = colorOptions ? colorOptions.options[colorOptions.selectedIndex].text : '';
+
+        const qty = parseInt(document.getElementById('qty') ? document.getElementById('qty').value : 0);
+
         const productId = this.dataset.product;
         const action = this.dataset.action;
+
+        // this variable is for increase and decrease quantity in cart and checkout page 
         const value = parseInt(this.value ? this.value : '');
 
         if (user === 'AnonymousUser') {
             console.log("User not logged in");
         } else {
-            updateUserOrder(productId, action, value)
+            updateUserOrder(productId, action, value, size, color, qty)
         }
     })
 };
 
 // Method for add to cart button and quantity increase-decrease in cart
-const updateUserOrder = (productId, action, value = 0) => {
+const updateUserOrder = (productId, action, value = 0, size = '', color = '', qty = 0) => {
     console.log("User is valid, Sending data");
-    console.log(productId, action, value);
 
     const url = 'http://127.0.0.1:8000/update_item/';
 
@@ -35,7 +45,10 @@ const updateUserOrder = (productId, action, value = 0) => {
         body: JSON.stringify({
             'productId': productId,
             'action': action,
-            'value': value
+            'value': value,
+            'size': size,
+            'color': color,
+            'qty': qty
         })
     })
         .then((response) => {
@@ -48,13 +61,11 @@ const updateUserOrder = (productId, action, value = 0) => {
 };
 
 
-// for Deleting items from cart
+// ==============for Deleting items from cart==================
 
 for (const btn of deleteBtns) {
     btn.addEventListener("click", function () {
         const productId = this.dataset.product;
-        // const action = this.dataset.action;
-        // const value = parseInt(this.value ? this.value : '');
         if (user === 'AnonymousUser') {
             console.log("User not logged in");
         } else {
@@ -90,6 +101,6 @@ const deleteUserOrder = (productId) => {
 
 
 // Continue shopping button functionality in cart 
-continueShoppingBtn.addEventListener('click', function () {
+continueShoppingBtn ? continueShoppingBtn.addEventListener('click', function () {
     window.history.back()
-})
+}) : '';
