@@ -57,6 +57,9 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
     value = data['value']
+    size = data['size']
+    color = data['color']
+    qty = data['qty']
 
     customer = request.user.customer
     product = get_object_or_404(Product, id=productId)
@@ -68,9 +71,9 @@ def updateItem(request):
         order=order, product=product)
 
     if action == 'add':
-        orderItem.quantity = (orderItem.quantity + 1)
-    elif action == 'remove':
-        orderItem.quantity = (orderItem.quantity - 1)
+        orderItem.size = size
+        orderItem.color = color
+        orderItem.quantity = qty
     elif action == 'add-remove':
         orderItem.quantity = value
 
