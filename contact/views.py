@@ -7,6 +7,7 @@ from product.models import Order, Customer
 
 
 def contact(request):
+    custom_messages = []
     if request.method == 'POST':
         Contact.objects.create(
             first_name=request.POST.get('first_name', ''),
@@ -15,7 +16,7 @@ def contact(request):
             subject=request.POST.get('subject', ''),
             message=request.POST.get('message', ''),
         )
-        messages.success(request, "Your message has been submitted.")
+        custom_messages.append('Your message has been submitted')
 
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -29,6 +30,7 @@ def contact(request):
     context = {
         'contact': True,
         'cartItems': cartItems,
-        'cartTotal': cartTotal
+        'cartTotal': cartTotal,
+        'custom_messages': custom_messages
     }
     return render(request, 'contact/contact.html', context=context)
