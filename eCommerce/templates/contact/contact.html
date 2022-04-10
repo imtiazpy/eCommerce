@@ -25,6 +25,22 @@
             If you have any query, Please fill up the form below and send us your inquiry.
           </p>
         </div>
+        <div class="success-message">
+
+          {% if custom_messages %}
+          <ul class="messages">
+            {% for message in custom_messages %}
+            <li>
+              <h4 class="alert-success text-center" style="padding-top: 5px; padding-bottom: 5px;">
+                {{ message }}
+              </h4>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+
+
+        </div>
       </div>
     </div>
     <div class="contact-submit">
