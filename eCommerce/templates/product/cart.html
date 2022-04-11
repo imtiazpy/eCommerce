@@ -91,11 +91,11 @@
                     <tbody>
                       <tr>
                         <td>Total products</td>
-                        <td class="price">{{ order.get_cart_items }}</td>
+                        <td class="price">{{ cartItems }}</td>
                       </tr>
                       <tr>
                         <td>Total products price</td>
-                        <td class="price">${{ order.get_cart_total }}</td>
+                        <td class="price">${{ cartTotal }}</td>
                       </tr>
                       <tr>
                         <td>Shipping</td>
@@ -103,7 +103,7 @@
                       </tr>
                       <tr>
                         <td> Total</td>
-                        <td id="total-price">${{ order.get_cart_total }}</td>
+                        <td id="total-price">${{ cartTotal }}</td>
                       </tr>
                       <tr>
                         <td colspan="2">
