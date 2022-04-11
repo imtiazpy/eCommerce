@@ -21,46 +21,36 @@
       <div class="row">
         <div class="col-md-6">
           <h5>Shipping Address</h5>
-          <form class="billing-info">
+          <form id="shipping-form" class="billing-info">
             <div class="products-order checkout billing-information">
 
               <div class="row">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-12 col-12">
                   <div class="input-group">
-                    <input type="text" required placeholder="First Name *" class="form-control">
+                    <input type="text" name="address" required placeholder="Address line *" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-6 col-12">
                   <div class="input-group">
-                    <input type="text" required placeholder="Last Name *" class="form-control">
+                    <input type="text" name="city" required placeholder="City *" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-12 col-sm-12">
+                <div class="col-md-6 col-12">
                   <div class="input-group">
-                    <input type="text" required placeholder="Address line *" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                  <div class="input-group">
-                    <input type="text" required placeholder="City *" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                  <div class="input-group">
-                    <input type="text" required placeholder="ZIP / Postal Code *" class="form-control">
+                    <input type="text" name="zipcode" required placeholder="ZIP / Postal Code *" class="form-control">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-12 col-12">
                   <div class="input-group">
-                    <input type="text" required placeholder="Phone *" class="form-control">
+                    <input type="text" name="phone" required placeholder="Phone *" class="form-control">
                   </div>
                 </div>
 
-                <div class="col-md-12 col-sm-12">
+                <div class="col-md-12 col-12">
                   <div class="input-group">
-                    <textarea placeholder="Additional information" id="textarea_message" name="contact-message"
+                    <textarea placeholder="Additional information" id="textarea_message" name="additionalInfo"
                       class="form-control"></textarea>
                   </div>
                 </div>
@@ -95,12 +85,6 @@
                               <input type="radio" checked value="option1" id="optionsRadios1" name="optionsRadios">
                               Cash On Delivery </label>
                           </div>
-                          <div class="form-group">
-                            <label for="CommentsOrder">Add Comments About Your Order</label>
-                            <textarea rows="3" cols="26" name="CommentsOrder" class="form-control"
-                              id="CommentsOrder"></textarea>
-                          </div>
-
                         </div>
                       </div>
                     </div>
@@ -171,11 +155,11 @@
                     {% endfor %}
                     <tr class="cart-detail">
                       <td colspan="3">Total products</td>
-                      <td colspan="2" class="price">{{ order.get_cart_items }}</td>
+                      <td colspan="2" class="price">{{ cartItems }}</td>
                     </tr>
                     <tr class="cart-detail">
                       <td colspan="3">Total products price</td>
-                      <td colspan="2" class="price">&#2547; {{ order.get_cart_total }}</td>
+                      <td colspan="2" class="price">&#2547; {{ cartTotal }}</td>
                     </tr>
                     <tr class="cart-detail">
                       <td colspan="3">Shipping</td>
@@ -183,7 +167,7 @@
                     </tr>
                     <tr class="cart-detail">
                       <td colspan="3"> Total</td>
-                      <td colspan="2" class="price" id="total-price">&#2547; {{ order.get_cart_total }}</td>
+                      <td colspan="2" class="price" id="total-price">&#2547; {{ cartTotal }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -199,7 +183,7 @@
                     </a>
                   </div>
                   <div class="pull-right">
-                    <a class="btn btn-primary btn-small " href="thanks-for-order.html">
+                    <a id="confirm-order" class="btn btn-primary btn-small">
                       Confirm Order &nbsp; <i class="fa fa-check"></i>
                     </a>
                   </div>
@@ -214,4 +198,8 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/checkout.js' %}"></script>
 {% endblock %}
