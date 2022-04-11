@@ -100,7 +100,3 @@ const deleteUserOrder = (productId) => {
 };
 
 
-// Continue shopping button functionality in cart 
-continueShoppingBtn ? continueShoppingBtn.addEventListener('click', function () {
-    window.history.back()
-}) : '';

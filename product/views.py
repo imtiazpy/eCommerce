@@ -18,11 +18,19 @@ def cart(request):
         order = {'id': 0}
         cartItems = order['get_cart_items']
         cartTotal = order['get_cart_total']
+
+    # for Continue-Shopping button in cart page
+    """
+    it works when we don't increase or decrease any item, but since we reload the page everytime when we increace or decrease any orderItem in cart page, the preUrl sets to the cart page. so it will perfectly as soon as we save cart data in cookies, doing so we don't have to reload the page.
+    """
+    preUrl = request.META.get('HTTP_REFERER')
+
     context = {
         'items': items,
         'order': order,
         'cartItems': cartItems,
-        'cartTotal': cartTotal
+        'cartTotal': cartTotal,
+        'preUrl': preUrl
     }
 
     return render(request, 'product/cart.html', context)
