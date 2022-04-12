@@ -48,7 +48,7 @@ const updateUserOrder = (productId, action, value = 0, size = '', color = '', qt
             'value': value,
             'size': size,
             'color': color,
-            'qty': qty
+            'qty': qty === 0 ? qty = 1 : qty
         })
     })
         .then((response) => {
