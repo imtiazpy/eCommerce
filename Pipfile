@@ -9,6 +9,8 @@ wagtail = "<2.16,>=2.15"
 django-environ = "*"
 django-allauth = "*"
 django-crispy-forms = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
