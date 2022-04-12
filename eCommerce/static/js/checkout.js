@@ -21,27 +21,34 @@ const submitFormData = (user, shippingForm, total) => {
 
     const url = 'http://127.0.0.1:8000/process_order/';
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            //csrftoken is defined in base.html
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({
-            'userData': userData,
-            'shippingFormData': shippingFormData
+    if (parseInt(total) !== 0 && shippingFormData.phone !== '') {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                //csrftoken is defined in base.html
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'userData': userData,
+                'shippingFormData': shippingFormData
+            })
         })
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Success", data);
-            alert("Order completed")
-            window.location.href = "/"
-        })
-
-
-}
+            .then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+                alert("Order completed")
+                window.location.href = "/"
+            })
+    } else if (parseInt(total) === 0 && shippingFormData.phone !== '') {
+        // Todo: we will show some message with style other than alert for every condition
+        alert("Please add some items!");
+    } else if (parseInt(total) !== 0 && shippingFormData.phone === '') {
+        alert('please add phone number in the shipping address form');
+    } else if (parseInt(total) === 0 && shippingFormData.phone === '') {
+        alert("Please add some items");
+    }
+};
 
 // when confirming the order
 document.getElementById('confirm-order').addEventListener('click', function (e) {
@@ -53,7 +60,7 @@ document.getElementById('confirm-order').addEventListener('click', function (e) 
     } else {
         // user and total are coming from "request.user" and order context 
         // both variable are declared in base.html
-        submitFormData(user, shippingForm, total)
+        submitFormData(user, shippingForm, parseFloat(total))
     }
 
 

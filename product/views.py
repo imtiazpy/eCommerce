@@ -115,23 +115,29 @@ def processOrder(request):
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
         total = data['userData']['total']
-        order.transaction_id = transaction_id
 
-        # total needs to be validated
-        # if total == order.get_cart_total:
-        #     order.complete = True
-        order.complete = True
-        order.save()
+        if total != 0 and data['shippingFormData']['phone'] != '':
+            order.transaction_id = transaction_id
 
-        ShippingAddress.objects.create(
-            customer=customer,
-            order=order,
-            address=data['shippingFormData']['address'],
-            city=data['shippingFormData']['city'],
-            zipcode=data['shippingFormData']['zipcode'],
-            phone=data['shippingFormData']['phone'],
-            additional_info=data['shippingFormData']['additionalInfo'],
-        )
+            # total needs to be validated
+            # if total == order.get_cart_total:
+            #     order.complete = True
+            order.complete = True
+
+            order.save()
+
+            ShippingAddress.objects.create(
+                customer=customer,
+                order=order,
+                address=data['shippingFormData']['address'],
+                city=data['shippingFormData']['city'],
+                zipcode=data['shippingFormData']['zipcode'],
+                phone=data['shippingFormData']['phone'],
+                additional_info=data['shippingFormData']['additionalInfo'],
+            )
+        else:
+            # Todo: we will show some message
+            print("=======No items added===========")
     else:
         print("You're not logged in")
 
