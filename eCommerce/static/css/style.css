@@ -575,11 +575,11 @@ h6 {
 	border-color: #d9121f;
 }
 .wish:hover {
-	background: #d9121f url("../images/widh-comp.png") no-repeat scroll 8px 11px;
+	/* background: #d9121f url("../images/widh-comp.png") no-repeat scroll 8px 11px; */
 	border-color: #d9121f;
 }
 .compare:hover {
-	background: #d9121f url("../images/widh-comp.png") no-repeat scroll 8px -26px;
+	/* background: #d9121f url("../images/widh-comp.png") no-repeat scroll 8px -26px; */
 	border-color: #d9121f;
 }
 .product-block:hover .product-hov {
@@ -594,10 +594,10 @@ h6 {
 	border: 1px solid #2b282f;
 }
 .wish {
-	background: #2b282f url("../images/widh-comp.png") no-repeat scroll 8px 11px;
+	/* background: #2b282f url("../images/widh-comp.png") no-repeat scroll 8px 11px; */
 }
 .compare {
-	background: #2b282f url("../images/widh-comp.png") no-repeat scroll 8px -26px;
+	/* background: #2b282f url("../images/widh-comp.png") no-repeat scroll 8px -26px; */
 }
 .addtocart {
 	background: #2b282f;
