@@ -34,7 +34,7 @@ for (const btn of updateBtns) {
 const updateUserOrder = (productId, action, value = 0, size = '', color = '', qty = 0) => {
     console.log("User is valid, Sending data");
 
-    const url = 'http://127.0.0.1:8000/update_item/';
+    const url = 'https://an-nurfashion.herokuapp.com/update_item/';
 
     fetch(url, {
         method: 'POST',
@@ -78,7 +78,7 @@ const deleteUserOrder = (productId) => {
     console.log("User is valid, Deleting Item");
     console.log(productId);
 
-    const url = 'http://127.0.0.1:8000/delete_item/';
+    const url = 'https://an-nurfashion.herokuapp.com/delete_item/';
 
     fetch(url, {
         method: 'POST',

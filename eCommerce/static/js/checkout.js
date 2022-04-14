@@ -19,7 +19,7 @@ const submitFormData = (user, shippingForm, total) => {
         'additionalInfo': shippingForm.additionalInfo.value
     }
 
-    const url = 'http://127.0.0.1:8000/process_order/';
+    const url = 'https://an-nurfashion.herokuapp.com/process_order/';
 
     if (parseInt(total) !== 0 && shippingFormData.phone !== '') {
         fetch(url, {
