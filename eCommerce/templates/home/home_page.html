@@ -14,7 +14,7 @@
       <div class="col-md-12">
         <div id="main-slider" class="owl-carousel">
           {% for carousel in self.header_carousel %}
-          {% image carousel.value.image width-800 as img %}
+          {% image carousel.value.image width-1200 as img %}
 
           <div class="item"><img src="{{ img.url }}" alt="main-banner{{ forloop.counter0 }}"></div>
 

@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # folders
-media/
+# media/
 
 # Distribution / packaging
 .Python
