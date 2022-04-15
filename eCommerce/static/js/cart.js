@@ -25,7 +25,7 @@ for (const btn of updateBtns) {
         if (user === 'AnonymousUser') {
             console.log("User not logged in");
             alert("Please login")
-            Todo:
+            // Todo:
             // Need to add the functionality to redirect to login page 
             // and after login, the user will be redirected to the previous page
         } else {
